@@ -1,0 +1,28 @@
+{
+  "name": "problem-matcher",
+  "version": "1.0.0",
+  "description": "Evaluate VSCode Problem Matchers",
+  "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/mheap/problem-matcher"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint *.js",
+    "lint-fix": "eslint --fix *.js"
+  },
+  "keywords": [
+    "vscode",
+    "problem",
+    "matcher"
+  ],
+  "author": "Michael Heap <m@michaelheap.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1"
+  }
+}
