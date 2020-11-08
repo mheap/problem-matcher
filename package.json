@@ -1,11 +1,11 @@
 {
   "name": "problem-matcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Evaluate VSCode Problem Matchers",
   "main": "index.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/mheap/problem-matcher"
+    "type": "git",
+    "url": "https://github.com/mheap/problem-matcher"
   },
   "scripts": {
     "test": "jest",
