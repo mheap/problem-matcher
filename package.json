@@ -1,6 +1,6 @@
 {
   "name": "problem-matcher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Evaluate VSCode Problem Matchers",
   "main": "index.js",
   "repository": {
