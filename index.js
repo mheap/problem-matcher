@@ -48,7 +48,7 @@ function loopMatch(matcher, input) {
           continue;
         }
 
-        let r = runRegExp(re, line, x);
+        let r = runRegExp(re, line, x, matcher);
 
         // If the regexp didn't match, assume that the loop is over and start again
         if (!r) {
