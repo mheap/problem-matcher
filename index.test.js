@@ -51,6 +51,28 @@ const eslintLoopMatcher = {
   ]
 };
 
+const loopMatcherWithDefaultSeverity = {
+  owner: "test-matcher-loop",
+  severity: 'error',
+  pattern: [
+    {
+      // Matches the 1st line in the output
+      regexp: "^([^\\s].*)$",
+      file: 1
+    },
+    {
+      // Matches the 2nd and 3rd line in the output
+      regexp: "^\\s+(\\d+):(\\d+)\\s+\\s+(.*)\\s\\s+(.*)$",
+      // File is carried through from above, so we define the rest of the groups
+      line: 1,
+      column: 2,
+      message: 3,
+      code: 4,
+      loop: true
+    }
+  ]
+};
+
 test("throws an error if the matcher is missing", () => {
   actual = () => matcher(undefined, "error::Something went wrong");
   expect(actual).toThrow("No matcher provided");
@@ -132,6 +154,54 @@ foo.js
 ✖ 4 problems (4 errors, 0 warnings)`;
 
   actual = matcher(eslintLoopMatcher, input);
+  expect(actual).toEqual([
+    {
+      file: "test.js",
+      line: "1",
+      column: "0",
+      severity: "error",
+      message: 'Missing "use strict" statement',
+      code: "strict"
+    },
+    {
+      file: "test.js",
+      line: "5",
+      column: "10",
+      severity: "error",
+      message: "'addOne' is defined but never used",
+      code: "no-unused-vars"
+    },
+    {
+      file: "foo.js",
+      line: "36",
+      column: "10",
+      severity: "error",
+      message: "Expected parentheses around arrow function argument",
+      code: "arrow-parens"
+    },
+    {
+      file: "foo.js",
+      line: "37",
+      column: "13",
+      severity: "error",
+      message: "Expected parentheses around arrow function argument",
+      code: "arrow-parens"
+    }
+  ]);
+});
+
+test("loop line matcher with default severity, does match", () => {
+  const input = `test.js
+  1:0   Missing "use strict" statement                 strict
+  5:10  'addOne' is defined but never used             no-unused-vars
+
+foo.js
+  36:10  Expected parentheses around arrow function argument  arrow-parens
+  37:13  Expected parentheses around arrow function argument  arrow-parens
+
+✖ 4 problems (4 errors, 0 warnings)`;
+
+  actual = matcher(loopMatcherWithDefaultSeverity, input);
   expect(actual).toEqual([
     {
       file: "test.js",
