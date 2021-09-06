@@ -53,7 +53,7 @@ const eslintLoopMatcher = {
 
 const loopMatcherWithDefaultSeverity = {
   owner: "test-matcher-loop",
-  severity: 'error',
+  severity: "error",
   pattern: [
     {
       // Matches the 1st line in the output
