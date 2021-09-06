@@ -8,9 +8,9 @@ const validMatcher = {
       regexp: "^([^:]+):([^:]+):([^:]+)$",
       message: 1,
       file: 2,
-      line: 3
-    }
-  ]
+      line: 3,
+    },
+  ],
 };
 
 const eslintSingleMatcher = {
@@ -24,9 +24,9 @@ const eslintSingleMatcher = {
       column: 3,
       severity: 4,
       message: 5,
-      code: 6
-    }
-  ]
+      code: 6,
+    },
+  ],
 };
 
 const eslintLoopMatcher = {
@@ -35,7 +35,7 @@ const eslintLoopMatcher = {
     {
       // Matches the 1st line in the output
       regexp: "^([^\\s].*)$",
-      file: 1
+      file: 1,
     },
     {
       // Matches the 2nd and 3rd line in the output
@@ -46,9 +46,9 @@ const eslintLoopMatcher = {
       severity: 3,
       message: 4,
       code: 5,
-      loop: true
-    }
-  ]
+      loop: true,
+    },
+  ],
 };
 
 const loopMatcherWithDefaultSeverity = {
@@ -58,7 +58,7 @@ const loopMatcherWithDefaultSeverity = {
     {
       // Matches the 1st line in the output
       regexp: "^([^\\s].*)$",
-      file: 1
+      file: 1,
     },
     {
       // Matches the 2nd and 3rd line in the output
@@ -68,9 +68,9 @@ const loopMatcherWithDefaultSeverity = {
       column: 2,
       message: 3,
       code: 4,
-      loop: true
-    }
-  ]
+      loop: true,
+    },
+  ],
 };
 
 test("throws an error if the matcher is missing", () => {
@@ -80,7 +80,7 @@ test("throws an error if the matcher is missing", () => {
 
 test("throws an error if the matcher is invalid (no owner)", () => {
   const m = {
-    pattern: []
+    pattern: [],
   };
   actual = () => matcher(m, "error::Something went wrong");
   expect(actual).toThrow("No matcher.owner provided");
@@ -88,7 +88,7 @@ test("throws an error if the matcher is invalid (no owner)", () => {
 
 test("throws an error if the matcher is invalid (no pattern)", () => {
   const m = {
-    owner: "test"
+    owner: "test",
   };
   actual = () => matcher(m, "error::Something went wrong");
   expect(actual).toThrow("No matcher.pattern provided");
@@ -97,7 +97,7 @@ test("throws an error if the matcher is invalid (no pattern)", () => {
 test("throws an error if the matcher is invalid (empty pattern)", () => {
   const m = {
     owner: "test",
-    pattern: []
+    pattern: [],
   };
   actual = () => matcher(m, "error::Something went wrong");
   expect(actual).toThrow(
@@ -108,7 +108,7 @@ test("throws an error if the matcher is invalid (empty pattern)", () => {
 test("throws an error if the matcher is invalid (invalid pattern)", () => {
   const m = {
     owner: "test",
-    pattern: { invalid: true }
+    pattern: { invalid: true },
   };
   actual = () => matcher(m, "error::Something went wrong");
   expect(actual).toThrow(
@@ -137,8 +137,8 @@ test("single line matcher, does match", () => {
       column: "11",
       severity: "Error",
       message: "'myVar' is defined but never used.",
-      code: "no-unused-vars"
-    }
+      code: "no-unused-vars",
+    },
   ]);
 });
 
@@ -161,7 +161,7 @@ foo.js
       column: "0",
       severity: "error",
       message: 'Missing "use strict" statement',
-      code: "strict"
+      code: "strict",
     },
     {
       file: "test.js",
@@ -169,7 +169,7 @@ foo.js
       column: "10",
       severity: "error",
       message: "'addOne' is defined but never used",
-      code: "no-unused-vars"
+      code: "no-unused-vars",
     },
     {
       file: "foo.js",
@@ -177,7 +177,7 @@ foo.js
       column: "10",
       severity: "error",
       message: "Expected parentheses around arrow function argument",
-      code: "arrow-parens"
+      code: "arrow-parens",
     },
     {
       file: "foo.js",
@@ -185,8 +185,8 @@ foo.js
       column: "13",
       severity: "error",
       message: "Expected parentheses around arrow function argument",
-      code: "arrow-parens"
-    }
+      code: "arrow-parens",
+    },
   ]);
 });
 
@@ -209,7 +209,7 @@ foo.js
       column: "0",
       severity: "error",
       message: 'Missing "use strict" statement',
-      code: "strict"
+      code: "strict",
     },
     {
       file: "test.js",
@@ -217,7 +217,7 @@ foo.js
       column: "10",
       severity: "error",
       message: "'addOne' is defined but never used",
-      code: "no-unused-vars"
+      code: "no-unused-vars",
     },
     {
       file: "foo.js",
@@ -225,7 +225,7 @@ foo.js
       column: "10",
       severity: "error",
       message: "Expected parentheses around arrow function argument",
-      code: "arrow-parens"
+      code: "arrow-parens",
     },
     {
       file: "foo.js",
@@ -233,8 +233,8 @@ foo.js
       column: "13",
       severity: "error",
       message: "Expected parentheses around arrow function argument",
-      code: "arrow-parens"
-    }
+      code: "arrow-parens",
+    },
   ]);
 });
 
@@ -246,8 +246,8 @@ test("uses default severity", () => {
       file: "/path/to/file.js",
       line: "12",
       severity: "Error",
-      message: "Some Message"
-    }
+      message: "Some Message",
+    },
   ]);
 });
 
@@ -262,9 +262,9 @@ test("uses overridden severity", () => {
         severity: 1,
         message: 2,
         file: 3,
-        line: 4
-      }
-    ]
+        line: 4,
+      },
+    ],
   };
   actual = matcher(warningMatcher, input);
   expect(actual).toEqual([
@@ -272,8 +272,8 @@ test("uses overridden severity", () => {
       file: "/path/to/file.js",
       line: "12",
       severity: "Warning",
-      message: "Some Message"
-    }
+      message: "Some Message",
+    },
   ]);
 });
 
@@ -287,9 +287,9 @@ test("pattern index provided that doesn't match a capture group", () => {
         message: 1,
         file: 2,
         line: 3,
-        code: 4
-      }
-    ]
+        code: 4,
+      },
+    ],
   };
   actual = () => matcher(invalidOffsetMatcher, input);
   expect(actual).toThrow(
@@ -304,9 +304,9 @@ test("pattern index provided that matches group 0", () => {
     pattern: [
       {
         regexp: "^([^:]+):([^:]+):([^:]+)$",
-        message: 0
-      }
-    ]
+        message: 0,
+      },
+    ],
   };
   actual = () => matcher(invalidOffsetMatcher, input);
   expect(actual).toThrow(
@@ -320,13 +320,13 @@ test("unsupported pattern configuration", () => {
     pattern: [
       {
         regexp: "^([^:]+)",
-        message: 1
+        message: 1,
       },
       {
         regexp: '^([^"]+)',
-        message: 1
-      }
-    ]
+        message: 1,
+      },
+    ],
   };
   actual = () => matcher(multipleNoLoopMatcher, "Test");
   expect(actual).toThrow(

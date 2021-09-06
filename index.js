@@ -1,4 +1,4 @@
-module.exports = function(matcher, input) {
+module.exports = function (matcher, input) {
   validateMatcher(matcher);
   validateInput(input);
 
